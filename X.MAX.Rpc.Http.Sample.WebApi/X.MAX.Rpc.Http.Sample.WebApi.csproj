@@ -17,4 +17,9 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\X.MAX.Rpc.Http.Sample.Contract\X.MAX.Rpc.Http.Sample.Contract.csproj" />
+    <ProjectReference Include="..\X.MAX.Rpc.Http\X.MAX.Rpc.Http.csproj" />
+  </ItemGroup>
+
 </Project>

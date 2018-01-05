@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace X.MAX.Rpc.Http.WebApi
+namespace X.MAX.Rpc.Http.Sample.WebApi
 {
     public class Startup
     {

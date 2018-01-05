@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace X.MAX.Rpc.Http.WebApi
+namespace X.MAX.Rpc.Http.Sample.WebApi
 {
     public class Program
     {

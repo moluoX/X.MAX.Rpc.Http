@@ -6,3 +6,9 @@ services:
     build:
       context: ./X.MAX.Rpc.Http.WebApi
       dockerfile: Dockerfile
+
+  x.max.rpc.http.sample.webapi:
+    image: x.max.rpc.http.sample.webapi
+    build:
+      context: ./X.MAX.Rpc.Http.Sample.WebApi
+      dockerfile: Dockerfile
