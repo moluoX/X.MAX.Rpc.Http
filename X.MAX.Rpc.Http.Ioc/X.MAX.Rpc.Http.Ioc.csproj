@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\X.MAX.Rpc.Http\X.MAX.Rpc.Http.csproj" />
   </ItemGroup>
 
