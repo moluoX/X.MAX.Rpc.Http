@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  x.max.rpc.http.webapi:
+    image: x.max.rpc.http.webapi
+    build:
+      context: ./X.MAX.Rpc.Http.WebApi
+      dockerfile: Dockerfile
