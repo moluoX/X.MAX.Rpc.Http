@@ -9,9 +9,16 @@ namespace X.MAX.Rpc.Http.Sample.WebApi.Controllers
     [Route("[controller]")]
     public class ApiController : Controller
     {
-        // POST api/values
+        // GET api
+        [HttpGet]
+        public string Get()
+        {
+            return "ok";
+        }
+
+        // POST api
         [HttpPost]
-        public object Post(RpcRequest request)
+        public object Post([FromBody]RpcRequest request)
         {
             return ServerManager.Invoke(request);
         }

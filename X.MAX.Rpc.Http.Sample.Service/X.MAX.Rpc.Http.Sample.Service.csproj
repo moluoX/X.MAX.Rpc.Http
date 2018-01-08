@@ -4,8 +4,4 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\X.MAX.Rpc.Http.Sample.Contract\X.MAX.Rpc.Http.Sample.Contract.csproj" />
-  </ItemGroup>
-
 </Project>

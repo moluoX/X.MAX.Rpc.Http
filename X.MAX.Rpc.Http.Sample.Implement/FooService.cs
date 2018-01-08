@@ -1,7 +1,7 @@
 ﻿using System;
-using X.MAX.Rpc.Http.Sample.Contract;
+using X.MAX.Rpc.Http.Sample.Service;
 
-namespace X.MAX.Rpc.Http.Sample.Service
+namespace X.MAX.Rpc.Http.Sample.Implement
 {
     public class FooService : IFooService
     {
