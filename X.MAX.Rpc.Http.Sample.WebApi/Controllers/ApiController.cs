@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
+using System.Text;
 
 namespace X.MAX.Rpc.Http.Sample.WebApi.Controllers
 {
@@ -17,10 +19,15 @@ namespace X.MAX.Rpc.Http.Sample.WebApi.Controllers
         }
 
         // POST api
-        [HttpPost]
-        public object Post([FromBody]RpcRequest request)
+        [HttpPost("{uri}")]
+        public object Post(string uri)
         {
-            return ServerManager.Invoke(request);
+            string arg;
+            using (StreamReader sr = new StreamReader(Request.Body, Encoding.UTF8))
+            {
+                arg = sr.ReadToEnd();
+            }
+            return ServerManager.Invoke(uri, arg);
         }
     }
 }

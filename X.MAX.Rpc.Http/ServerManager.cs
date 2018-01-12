@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Linq;
 
@@ -38,33 +40,42 @@ namespace X.MAX.Rpc.Http
             _serviceProvider = serviceProviderResolver(_serviceCollection);
         }
 
-        public static object Invoke(RpcRequest request)
+        public static object Invoke(string uri, string argJson)
         {
-            var lastIndex = request.uri.LastIndexOf(".");
-            var typeFullName = request.uri.Substring(0, lastIndex);
-            //var type = Type.GetType(typeFullName);
-            var methodName = request.uri.Substring(lastIndex + 1);
+            uri = uri.Replace('-', '.');
+            var lastIndex = uri.LastIndexOf(".");
+            var typeFullName = uri.Substring(0, lastIndex);
+            var methodName = uri.Substring(lastIndex + 1);
 
             //find interface and implement
             var serviceDescriptor = _serviceCollection.FirstOrDefault(x => x.ServiceType.FullName == typeFullName);
+            if (serviceDescriptor == null)
+                throw new Exception("未找到服务");
             var obj = _serviceProvider.GetService(serviceDescriptor.ServiceType);
 
-            //parameters type
+            //parameters count
+            var args = JArray.Parse(argJson);
             var method = serviceDescriptor.ServiceType.GetMethod(methodName);
+            if (method == null)
+                throw new Exception("未找到接口");
             var parameterInfos = method.GetParameters();
+            if (!method.IsPublic || args.Count != parameterInfos.Length)
+            {
+                method = serviceDescriptor.ServiceType.GetMethods().FirstOrDefault(x => x.Name == methodName && x.IsPublic && x.GetParameters().Length == args.Count);
+                parameterInfos = method.GetParameters();
+            }
+
+            //parameters type
             var parameters = new object[parameterInfos.Length];
             for (int i = 0; i < parameterInfos.Length; i++)
             {
-                if (request.parameters[i] == null)
+                if (args[i] == null)
                 {
                     parameters[i] = null;
                     continue;
                 }
-                if (parameterInfos[i].ParameterType == request.parameters[i].GetType())
-                {
-                    parameters[i] = request.parameters[i];
-                    continue;
-                }
+                //parameters[i] = JsonConvert.DeserializeObject(args[i].ToString(), parameterInfos[i].ParameterType);
+                parameters[i] = args[i].ToObject(parameterInfos[i].ParameterType);
             }
 
             //invoke
