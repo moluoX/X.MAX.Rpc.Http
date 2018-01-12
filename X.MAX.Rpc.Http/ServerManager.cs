@@ -8,30 +8,6 @@ namespace X.MAX.Rpc.Http
 {
     public class ServerManager
     {
-        //#region singleton
-
-        //private ServerManager()
-        //{
-        //}
-        //private static object _sync;
-        //private static ServerManager _instance;
-        //public static ServerManager Instance
-        //{
-        //    get
-        //    {
-        //        if (_instance == null)
-        //        {
-        //            lock (_sync)
-        //            {
-        //                _instance = _instance ?? new ServerManager();
-        //            }
-        //        }
-        //        return _instance;
-        //    }
-        //}
-
-        //#endregion
-
         private static IServiceCollection _serviceCollection;
         private static IServiceProvider _serviceProvider;
         public static void SetServiceProvider(IServiceCollection serviceCollection, Func<IServiceCollection, IServiceProvider> serviceProviderResolver)
