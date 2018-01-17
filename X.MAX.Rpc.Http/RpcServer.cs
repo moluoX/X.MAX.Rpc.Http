@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace X.MAX.Rpc.Http
 {
-    public class ServerManager
+    public class RpcServer
     {
         private static IServiceCollection _serviceCollection;
         private static IServiceProvider _serviceProvider;

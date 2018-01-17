@@ -48,7 +48,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 }
             }
 
-            ServerManager.SetServiceProvider(services, serviceProviderResolver);
+            RpcServer.SetServiceProvider(services, serviceProviderResolver);
             return services;
         }
     }

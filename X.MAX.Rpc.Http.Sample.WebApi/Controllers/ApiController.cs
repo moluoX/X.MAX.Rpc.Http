@@ -27,7 +27,7 @@ namespace X.MAX.Rpc.Http.Sample.WebApi.Controllers
             {
                 arg = sr.ReadToEnd();
             }
-            return ServerManager.Invoke(uri, arg);
+            return RpcServer.Invoke(uri, arg);
         }
     }
 }
