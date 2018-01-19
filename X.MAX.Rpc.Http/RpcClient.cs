@@ -9,11 +9,12 @@ namespace X.MAX.Rpc.Http
     {
         private static ConcurrentDictionary<Type, object> _services = new ConcurrentDictionary<Type, object>();
 
-        public static T GetService<T>() where T : class
+        public static T GetService<T>(string serviceUrl = "{rpcServiceUrl}") where T : class
         {
             if (!_services.ContainsKey(typeof(T)))
             {
                 var proxy = RpcProxy.Create<T, RpcProxy>();
+                typeof(RpcProxy).GetProperty("ServiceUrl").SetValue(proxy, serviceUrl);
                 _services.TryAdd(typeof(T), proxy);
             }
             return _services[typeof(T)] as T;
