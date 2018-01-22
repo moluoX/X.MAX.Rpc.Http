@@ -11,13 +11,14 @@ namespace X.MAX.Rpc.Http
     public class RpcProxy : DispatchProxy
     {
         public string ServiceUrl { get; set; }
+        public int TimeoutMillisecond { get; set; } = 60000;
 
         protected override object Invoke(MethodInfo targetMethod, object[] args)
         {
             //请求
             string url = AnalyzeUri(targetMethod);
             var request = WebRequest.CreateHttp(url);
-            request.Timeout = 60000;
+            request.Timeout = TimeoutMillisecond;
             request.Method = "POST";
             request.Accept = "application/json; charset=utf-8";
 
@@ -44,30 +45,22 @@ namespace X.MAX.Rpc.Http
                 }
             }
 
-            //RESTFulInvokeExceptionInfo exceptionInfo;
-            //if (code < 200 || code >= 300)
-            //{
-            //    if (string.IsNullOrWhiteSpace(content))
-            //        exceptionInfo = new RESTFulInvokeExceptionInfo { type = "100001", message = "操作失败" };
-            //    exceptionInfo = Serializer.Deserialize<RESTFulInvokeExceptionInfo>(content);
-            //    if (exceptionInfo == null)
-            //        exceptionInfo = new RESTFulInvokeExceptionInfo { type = "100002", message = "操作失败", messageDetail = content };
-            //    exceptionInfo.url = url;
-            //    exceptionInfo.code = code;
-
-            //    throw new RESTFulInvokeException(exceptionInfo);
-            //}
+            if (code < 200 || code >= 300)
+                throw new RpcInvokeException(content, code);
 
             if (string.IsNullOrWhiteSpace(content))
-                return null;
-            
+                throw new RpcInvokeException("no response content", 99);
+
             var resObj = JsonConvert.DeserializeObject(content, targetMethod.ReturnType);
             return resObj;
         }
 
         private string AnalyzeUri(MethodInfo targetMethod)
         {
-            return "http://localhost:31762/api/X-MAX-Rpc-Http-Sample-Service-IFooService-Add";
+            if (string.IsNullOrWhiteSpace(ServiceUrl))
+                throw new ArgumentNullException("ServiceUrl");
+            var fullName = targetMethod.DeclaringType.FullName.Replace('.', '-') + ('-') + targetMethod.Name;
+            return ServiceUrl.TrimEnd('/') + '/' + fullName;
         }
     }
 }

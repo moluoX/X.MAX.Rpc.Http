@@ -9,7 +9,7 @@ namespace X.MAX.Rpc.Http.Sample.Client
         {
             Console.WriteLine("Hello World!");
 
-            var service = RpcClient.GetService<IFooService>();
+            var service = RpcClient.GetService<IFooService>("http://localhost:31762/api");
             var r = service.Add(1, 2);
             Console.WriteLine(r);
 

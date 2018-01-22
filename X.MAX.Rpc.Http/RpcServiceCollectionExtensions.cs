@@ -11,7 +11,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class RpcServiceCollectionExtensions
     {
-        public static IServiceCollection AddRpc(this IServiceCollection services, Func<IServiceCollection, IServiceProvider> serviceProviderResolver, string serviceAssemblyRegexStr = @"^[\w\.]*\.service$", string implementAssemblyRegexStr = @"^[\w\.]*\.implement$")
+        public static IServiceCollection AddRpc(this IServiceCollection services, Func<IServiceCollection, IServiceProvider> serviceProviderResolver, bool showErrorMessageDetail = false, string serviceAssemblyRegexStr = @"^[\w\.]*\.service$", string implementAssemblyRegexStr = @"^[\w\.]*\.implement$")
         {
             //auto register services
             if (!string.IsNullOrWhiteSpace(serviceAssemblyRegexStr) && !string.IsNullOrWhiteSpace(implementAssemblyRegexStr))
@@ -49,6 +49,7 @@ namespace Microsoft.Extensions.DependencyInjection
             }
 
             RpcServer.SetServiceProvider(services, serviceProviderResolver);
+            RpcServer.ShowErrorMessageDetail = showErrorMessageDetail;
             return services;
         }
     }

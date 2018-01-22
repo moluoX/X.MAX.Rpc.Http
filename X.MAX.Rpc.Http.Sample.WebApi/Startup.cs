@@ -25,7 +25,7 @@ namespace X.MAX.Rpc.Http.Sample.WebApi
         {
             services.AddMvc();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
-            services.AddRpc((x) => x.BuildServiceProvider(), Configuration["AppSettings:ServiceAssemblyRegex"], Configuration["AppSettings:ImplementAssemblyRegex"]);
+            services.AddRpc((x) => x.BuildServiceProvider(), true, Configuration["AppSettings:ServiceAssemblyRegex"], Configuration["AppSettings:ImplementAssemblyRegex"]);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
