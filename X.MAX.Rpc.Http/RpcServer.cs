@@ -16,7 +16,7 @@ namespace X.MAX.Rpc.Http
             _serviceProvider = serviceProviderResolver(_serviceCollection);
         }
 
-        public static object Invoke(string uri, string argJson)
+        public static string Invoke(string uri, string argJson)
         {
             uri = uri.Replace('-', '.');
             var lastIndex = uri.LastIndexOf(".");
@@ -56,7 +56,10 @@ namespace X.MAX.Rpc.Http
 
             //invoke
             var r = method.Invoke(obj, parameters);
-            return r;
+            if (r == null)
+                return null;
+
+            return JsonConvert.SerializeObject(r);
         }
     }
 }

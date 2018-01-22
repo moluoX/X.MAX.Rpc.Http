@@ -20,7 +20,7 @@ namespace X.MAX.Rpc.Http.Sample.WebApi.Controllers
 
         // POST api
         [HttpPost("{uri}")]
-        public object Post(string uri)
+        public string Post(string uri)
         {
             string arg;
             using (StreamReader sr = new StreamReader(Request.Body, Encoding.UTF8))

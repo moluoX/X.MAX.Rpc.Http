@@ -19,11 +19,12 @@ namespace X.MAX.Rpc.Http
             var request = WebRequest.CreateHttp(url);
             request.Timeout = 60000;
             request.Method = "POST";
-            request.Accept = "application/json";
+            request.Accept = "application/json; charset=utf-8";
 
             //body
             var body = JsonConvert.SerializeObject(args);
             var bodyBytes = Encoding.UTF8.GetBytes(body);
+            request.ContentType = "application/json; charset=utf-8";
             request.ContentLength = bodyBytes.LongLength;
             using (Stream requestStream = request.GetRequestStream())
             {
