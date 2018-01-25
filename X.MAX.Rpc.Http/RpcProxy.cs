@@ -20,7 +20,7 @@ namespace X.MAX.Rpc.Http
             var request = WebRequest.CreateHttp(url);
             request.Timeout = TimeoutMillisecond;
             request.Method = "POST";
-            request.Accept = "application/json; charset=utf-8";
+            request.Accept = "application/json";
 
             //body
             var body = JsonConvert.SerializeObject(args);
