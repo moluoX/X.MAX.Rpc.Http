@@ -18,9 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\X.MAX.Rpc.Http\X.MAX.Rpc.Http.csproj" />
     <ProjectReference Include="..\X.MAX.Rpc.Http.Sample.Implement\X.MAX.Rpc.Http.Sample.Implement.csproj" />
     <ProjectReference Include="..\X.MAX.Rpc.Http.Sample.Service\X.MAX.Rpc.Http.Sample.Service.csproj" />
-    <ProjectReference Include="..\X.MAX.Rpc.Http\X.MAX.Rpc.Http.csproj" />
   </ItemGroup>
 
 </Project>
